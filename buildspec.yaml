@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+      java: corretto11
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_REGION)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building java
+      - mvn clean package
+      - echo Building the docker image
+      - docker build -t process-pension-microservice .
+      - docker tag process-pension-microservice 860061945305.dkr.ecr.ap-south-1.amazonaws.com/pst-pms-demo-ecr:process-pension-microservice
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo $(docker images)
+      - docker push 860061945305.dkr.ecr.ap-south-1.amazonaws.com/pst-pms-demo-ecr:process-pension-microservice
+      - echo Writing definition files
+      - printf '[{"name":"pst-processpension-container","imageUri":"%s"}]' 860061945305.dkr.ecr.ap-south-1.amazonaws.com/pst-pms-demo-ecr:process-pension-microservice > taskdefinition.json
+
+artifacts:
+  files: taskdefinition.json

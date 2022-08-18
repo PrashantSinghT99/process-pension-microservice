@@ -1,0 +1,10 @@
+version: 1.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:ap-south-1:860061945305:task-definition/pms-pst-processpension-taskdef:1"
+        LoadBalancerInfo:
+          ContainerName: "pst-processpension-container"
+          ContainerPort: "7004"
+        PlatformVersion: "LATEST"
