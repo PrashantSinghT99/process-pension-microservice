@@ -5,6 +5,6 @@ Resources:
       Properties:
         TaskDefinition: "arn:aws:ecs:ap-south-1:860061945305:task-definition/pms-pst-processpension-taskdef:1"
         LoadBalancerInfo:
-          ContainerName: "pst-processpension-container"
+          ContainerName: "process-pension-microservice"
           ContainerPort: "7004"
         PlatformVersion: "LATEST"
