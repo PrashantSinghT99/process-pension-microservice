@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.pms.cde.processPensionMicroservice.model.PensionerDetail;
 
-@FeignClient(name = "pensioner-details-service", url = "http://localhost:7002/details")
+@FeignClient(name = "pensioner-details-service", url = "http://13.233.133.227:7002/details")
 public interface PensionerDetailClient {
 	@GetMapping("/pensionerDetailByAadhaar/{aadhaarNumber}")
 	public PensionerDetail getPensionerDetailByAadhaar(@RequestHeader(value = "Authorization",required = true) String header,@PathVariable long aadhaarNumber);
